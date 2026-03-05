@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    
+    tools {
+        maven 'Maven 2.541.1' 
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Build & Test') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+}
