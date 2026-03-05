@@ -2,15 +2,25 @@ pipeline {
     agent any
     
     tools {
-        // Ensure this name matches your Maven name in Manage Jenkins -> Tools
-        maven 'maven' 
+        maven 'M3' 
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
         stage('Build & Test') {
             steps {
-                // Use 'bat' instead of 'sh' for Windows
-                bat 'mvn clean test'
+                sh 'mvn clean test'
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                sh 'mvn package'
             }
         }
     }
